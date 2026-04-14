@@ -1,5 +1,6 @@
 package org.auladevsuperior.dscatalog.services;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.auladevsuperior.dscatalog.dto.CategoryDTO;
 import org.auladevsuperior.dscatalog.entities.Category;
 import org.auladevsuperior.dscatalog.exception.ResourceNotFoundException;
@@ -37,5 +38,18 @@ public class CategoryService {
       entity.setName(dto.getName());
       entity = repository.save(entity);
       return new CategoryDTO(entity);
+   }
+
+   @Transactional
+   public CategoryDTO update(Long id, CategoryDTO dto) {
+      try{
+         Category entity = repository.getReferenceById(id);
+         entity.setName(dto.getName());
+         entity = repository.save(entity);
+         return new CategoryDTO(entity);
+      }
+      catch (EntityNotFoundException e){
+         throw new ResourceNotFoundException("Id não encontrado " + id);
+      }
    }
 }
