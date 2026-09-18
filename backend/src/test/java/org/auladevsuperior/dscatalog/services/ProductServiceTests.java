@@ -33,14 +33,14 @@ public class ProductServiceTests {
    @Mock
    private ProductRepository repository;
 
-   private long existingId;
+   private Long existingId;
    private Long nonExistingId;
    private Long dependentId;
    private PageImpl<Product> page;
    private Product product;
 
    @BeforeEach
-   void setUp() {
+   void setUp() throws Exception{
 
       existingId = 1L;
       nonExistingId = 2L;
